@@ -1,0 +1,18 @@
+* {
+  background-color: #000000;
+  color: #959595
+}
+
+input {
+  background-color: #101010;
+  border-color: #898989;
+  color: #ffffff
+}
+
+.inline {
+  display: inline;
+}
+
+.delete_button {
+  margin-left: 1em;
+}
