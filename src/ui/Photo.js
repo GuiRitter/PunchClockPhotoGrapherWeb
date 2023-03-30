@@ -39,7 +39,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				document.querySelector(':root').style.setProperty('--view-finder-height', `${height}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-top', `${offSet.top}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-left', `${offSet.left}px`);
-				document.querySelector(':root').style.setProperty('--view-finder-box-shadow', `inset ${size}px 0 #00000080, inset -${size}px 0 #00000080`);
+				document.querySelector(':root').style.setProperty('--view-finder-box-shadow', `inset 0 ${size}px #00000080, inset 0 -${size}px #00000080`);
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
