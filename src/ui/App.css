@@ -18,5 +18,5 @@ input {
 }
 
 video {
-  box-shadow: inset var(--view-finder-size) 0 #00000080, inset calc(- var(--view-finder-size)) 0 #00000080;
+  box-shadow: inset 0 var(--view-finder-size) #00000080, inset 0 calc(- var(--view-finder-size)) #00000080;
 }
