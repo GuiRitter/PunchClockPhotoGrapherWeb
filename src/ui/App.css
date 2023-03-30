@@ -1,5 +1,5 @@
 :root {
-  --view-finder-size: initial;
+  --view-finder-box-shadow: initial;
 }
 
 * {
@@ -18,5 +18,5 @@ input {
 }
 
 video {
-  box-shadow: inset var(--view-finder-size) 0 #00000080, inset calc(- var(--view-finder-size)) 0 #00000080;
+  box-shadow: var(--view-finder-box-shadow);
 }
