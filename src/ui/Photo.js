@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { buildCell, buildRow, buildTable } from '../util/html';
+import { buildCell, buildRow, buildTable, getOffset } from '../util/html';
 import { getLog } from '../util/log';
 
 import { setHeight, setStreaming, showList } from '../flux/action/index';
 
 const log = getLog('Photo.');
 
-function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, streaming, width) {
-	if ((!videoField) || (!canvasField) || streaming) {
+function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, streaming, width) {
+	if ((!videoField) || (!canvasField) || (!viewFinderField) || streaming) {
 		return;
 	}
 
@@ -33,6 +33,12 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 
 				const difference = Math.max(width, height) - Math.min(width, height);
 				const size = difference / 2;
+				const offSet = getOffset(videoField);
+
+				document.querySelector(':root').style.setProperty('--view-finder-width', `${width}px`);
+				document.querySelector(':root').style.setProperty('--view-finder-height', `${height}px`);
+				document.querySelector(':root').style.setProperty('--view-finder-top', `${offSet.top}px`);
+				document.querySelector(':root').style.setProperty('--view-finder-left', `${offSet.left}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-box-shadow', `inset ${size}px 0 #00000080, inset -${size}px 0 #00000080`);
 
 				videoField.setAttribute('width', width);
@@ -58,10 +64,11 @@ function Photo(props) {
 
 	const [videoField, setVideoField] = useState(null);
 	const [canvasField, setCanvasField] = useState(null);
+	const [viewFinderField, setViewFinderField] = useState(null);
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, streaming, width);
+			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, streaming, width);
 		} else {
 			didMountRef.current = true;
 			// componentDidMount(props, dispatch);
@@ -106,7 +113,10 @@ function Photo(props) {
 	)}<canvas
 		id='canvas'
 		ref={ref => { if (ref && (ref !== canvasField)) { setCanvasField(ref); } }}
-	> </canvas></>;
+	> </canvas><div
+		id='view_finder'
+		ref={ref => { if (ref && (ref !== viewFinderField)) { setViewFinderField(ref); } }}
+	></div></>;
 }
 
 export default Photo;

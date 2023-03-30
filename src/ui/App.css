@@ -1,4 +1,8 @@
 :root {
+  --view-finder-width: initial;
+  --view-finder-height: initial;
+  --view-finder-top: initial;
+  --view-finder-left: initial;
   --view-finder-box-shadow: initial;
 }
 
@@ -17,6 +21,12 @@ input {
   display: inline;
 }
 
-video {
+#view_finder {
+  position: fixed;
+  background-color: #00000000;
+  width: var(--view-finder-width);
+  height: var(--view-finder-height);
+  top: var(--view-finder-top);
+  left: var(--view-finder-left);
   box-shadow: var(--view-finder-box-shadow);
 }
