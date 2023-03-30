@@ -34,6 +34,13 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				const difference = Math.max(width, height) - Math.min(width, height);
 				const size = difference / 2;
 				document.querySelector(':root').style.setProperty('--view-finder-size', `${size}px`);
+				alert(getComputedStyle(document.querySelector(':root')).getPropertyValue('--view-finder-size')); // TODO test
+				setTimeout(() => {
+					alert(getComputedStyle(document.querySelector(':root')).getPropertyValue('--view-finder-size')); // TODO test
+				}, 0);
+				setTimeout(() => {
+					alert(getComputedStyle(document.querySelector(':root')).getPropertyValue('--view-finder-size')); // TODO test
+				}, 1000);
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
