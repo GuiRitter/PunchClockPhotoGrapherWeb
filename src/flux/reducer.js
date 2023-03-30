@@ -16,7 +16,11 @@ const initialState =
 	data: [],
 	isLoading: false,
 	state: state.LIST,
-	token: null
+	token: null,
+
+	width: 320, // We will scale the photo width to this
+	height: 0, // This will be computed based on the input stream
+	streaming: false
 };
 
 const reducer = (currentState = initialState, action) => {
@@ -70,6 +74,25 @@ const reducer = (currentState = initialState, action) => {
 
 		case type.RESTORE_FROM_LOCAL_STORAGE:
 			return JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) || initialState;
+
+		case type.RESET_MEDIA:
+			return updateLocalStorage({
+				...nextState,
+				height: 0,
+				streaming: false
+			});
+
+		case type.SET_HEIGHT:
+			return updateLocalStorage({
+				...nextState,
+				height: action.height
+			});
+
+		case type.SET_STREAMING:
+			return updateLocalStorage({
+				...nextState,
+				streaming: action.streaming
+			});
 
 		default: return nextState;
 	}

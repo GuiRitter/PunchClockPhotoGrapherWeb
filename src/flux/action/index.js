@@ -20,7 +20,23 @@ const setState = state => ({
 	state
 });
 
-export const showList = () => setState(state.LIST);
+export const setHeight = height => ({
+	type: type.SET_HEIGHT,
+	height
+});
+
+export const setStreaming = streaming => ({
+	type: type.SET_STREAMING,
+	streaming
+});
+
+export const showList = () => dispatch => {
+	dispatch(setState(state.LIST));
+	dispatch({
+		type: type.RESET_MEDIA
+	});
+};
+
 export const showPhoto = () => setState(state.PHOTO);
 
 export const signIn = (login, password) => dispatch => {
