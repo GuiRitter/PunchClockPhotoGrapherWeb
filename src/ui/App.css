@@ -1,3 +1,7 @@
+:root {
+  --view-finder-size: initial;
+}
+
 * {
   background-color: #000000;
   color: #959595
@@ -13,6 +17,6 @@ input {
   display: inline;
 }
 
-.delete_button {
-  margin-left: 1em;
+video {
+  box-shadow: inset var(--view-finder-size) 0 #00000080, inset calc(- var(--view-finder-size)) 0 #00000080;
 }

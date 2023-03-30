@@ -8,21 +8,6 @@ import { setHeight, setStreaming, showList } from '../flux/action/index';
 
 const log = getLog('Photo.');
 
-// TODO https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos
-function toDo() {
-	navigator.mediaDevices.enumerateDevices().then(devices => {
-		const backCamera = devices.find(device => device.label.includes('facing back'));
-		navigator.mediaDevices.getUserMedia({ deviceId: backCamera.deviceId });
-		// ...
-	});
-	// OR
-	navigator.mediaDevices.getUserMedia({
-		audio: false,
-		video: { facingMode: { exact: 'environment' } }
-	});
-	// ...
-}
-
 function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, streaming, width) {
 	if ((!videoField) || (!canvasField) || streaming) {
 		return;
@@ -45,6 +30,10 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 			if (!streaming) {
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 				dispatch(setHeight(height));
+
+				const difference = Math.max(width, height) - Math.min(width, height);
+				const size = difference / 2;
+				document.querySelector(':root').style.setProperty('--view-finder-size', `${size}px`);
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
