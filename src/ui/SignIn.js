@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
 
-import { showMenu, signIn } from '../flux/action/index';
+import { signIn } from '../flux/action/index';
 
 function SignIn(props) {
 

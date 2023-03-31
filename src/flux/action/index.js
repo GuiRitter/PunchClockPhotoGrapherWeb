@@ -9,6 +9,18 @@ import * as axios from './axios';
 // 	type: type.NO_OP
 // });
 
+export const getList = () => dispatch => {
+	dispatch(axios.get(
+		`${API_URL}/photo/get`,
+		null,
+		value => dispatch({
+			type: type.GET_DATA,
+			data: value.data
+		}),
+		null
+	));
+};
+
 export const put = (dateTime, dataURI) => dispatch => {
 	dispatch(axios.post(
 		`${API_URL}/photo/put`,
