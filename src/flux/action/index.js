@@ -5,11 +5,20 @@ import * as type from '../type';
 
 import * as axios from './axios';
 
-const moment = require('moment');
-
 // const doesNothing = ({
 // 	type: type.NO_OP
 // });
+
+export const put = (dateTime, dataURI) => dispatch => {
+	dispatch(axios.post(
+		`${API_URL}/photo/put`,
+		{ dateTime, dataURI },
+		null,
+		null,
+		error => alert(error ? (error.message || error.cause || (error.toString ? error.toString() : JSON.stringify(error))) : 'Unknown error'),
+		() => dispatch(showList())
+	));
+};
 
 export const restoreFromLocalStorage = () => ({
 	type: type.RESTORE_FROM_LOCAL_STORAGE

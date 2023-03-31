@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { buildCell, buildRow, buildTable, getOffset } from '../util/html';
 import { getLog } from '../util/log';
 
-import { setHeight, setStreaming, showList } from '../flux/action/index';
+import { put, setHeight, setStreaming, showList } from '../flux/action/index';
+
+const moment = require('moment');
 
 const log = getLog('Photo.');
 
@@ -105,9 +107,8 @@ function Photo(props) {
 							canvasField.width = width;
 							canvasField.height = height;
 							context.drawImage(videoField, 0, 0, width, height);
-							const data = canvasField.toDataURL('image/png');
-							// TODO
-							console.log(data);
+							const dataURI = canvasField.toDataURL('image/png');
+							dispatch(put(moment().format(), dataURI));
 						}
 					}}
 					type='button'
