@@ -78,6 +78,7 @@ const reducer = (currentState = initialState, action) => {
 		case type.RESET_MEDIA:
 			return updateLocalStorage({
 				...nextState,
+				width: 320,
 				height: 0,
 				streaming: false
 			});

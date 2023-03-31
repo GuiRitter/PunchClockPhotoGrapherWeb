@@ -1,32 +1,41 @@
 :root {
-  --view-finder-width: initial;
-  --view-finder-height: initial;
-  --view-finder-top: initial;
-  --view-finder-left: initial;
-  --view-finder-box-shadow: initial;
+	--view-finder-width: initial;
+	--view-finder-height: initial;
+	--view-finder-top: initial;
+	--view-finder-left: initial;
+	--view-finder-box-shadow: initial;
 }
 
 * {
-  background-color: #000000;
-  color: #959595
+	background-color: #000000;
+	color: #959595
 }
 
 input {
-  background-color: #101010;
-  border-color: #898989;
-  color: #ffffff
+	background-color: #101010;
+	border-color: #898989;
+	color: #ffffff
 }
 
 .inline {
-  display: inline;
+	display: inline;
 }
 
 #view_finder {
-  position: fixed;
-  background-color: #00000000;
-  width: var(--view-finder-width);
-  height: var(--view-finder-height);
-  top: var(--view-finder-top);
-  left: var(--view-finder-left);
-  box-shadow: var(--view-finder-box-shadow);
+	position: fixed;
+	background-color: #00000000;
+	width: var(--view-finder-width);
+	height: var(--view-finder-height);
+	top: var(--view-finder-top);
+	left: var(--view-finder-left);
+	box-shadow: var(--view-finder-box-shadow);
+}
+
+#video {
+	width: 320px;
+	height: 240px;
+}
+
+#canvas {
+	display: none;
 }

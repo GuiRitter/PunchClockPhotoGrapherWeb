@@ -39,7 +39,12 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				document.querySelector(':root').style.setProperty('--view-finder-height', `${height}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-top', `${offSet.top}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-left', `${offSet.left}px`);
-				document.querySelector(':root').style.setProperty('--view-finder-box-shadow', `inset 0 ${size}px #00000080, inset 0 -${size}px #00000080`);
+				document.querySelector(':root').style.setProperty(
+					'--view-finder-box-shadow',
+					(height > width)
+						? `inset 0 ${size}px #00000080, inset 0 -${size}px #00000080`
+						: `inset ${size}px 0 #00000080, inset -${size}px 0 #00000080`
+				);
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
@@ -59,8 +64,9 @@ function Photo(props) {
 
 	const streaming = useSelector(state => ((state || {}).reducer || {}).streaming || false);
 	const width = useSelector(state => ((state || {}).reducer || {}).width || null);
+	const height = useSelector(state => ((state || {}).reducer || {}).height || null);
 
-	log('Photo');
+	log('Photo', { streaming, width, height });
 
 	const [videoField, setVideoField] = useState(null);
 	const [canvasField, setCanvasField] = useState(null);
@@ -93,7 +99,17 @@ function Photo(props) {
 				'photo',
 				<input
 					id='startbutton'
-					onClick={() => alert('TO DO')}
+					onClick={() => {
+						const context = canvasField.getContext('2d');
+						if (width && height) {
+							canvasField.width = width;
+							canvasField.height = height;
+							context.drawImage(videoField, 0, 0, width, height);
+							const data = canvasField.toDataURL('image/png');
+							// TODO
+							console.log(data);
+						}
+					}}
 					type='button'
 					value='Take photo'
 				/>
