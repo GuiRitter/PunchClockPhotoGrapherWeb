@@ -28,12 +28,11 @@ function List(props) {
 			};
 			previousList = previousList.concat(item);
 		}
-		item.dateTimeList = item.dateTimeList.concat(currentRow.dateTime);
+		item.dateTimeList = item.dateTimeList.concat(currentRow.date_time);
 		return previousList;
 	}, []).map(item => <Week
 		key={item.week}
-		week={item.week}
-		dateTimeList={item.dateTimeList}
+		{...item}
 	/>);
 
 	return <>{weekList}{buildTable(

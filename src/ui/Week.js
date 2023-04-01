@@ -1,14 +1,15 @@
 import React/*, { useState }*/ from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { buildCell, buildRow, buildTable } from '../util/html';
 import { getLog } from '../util/log';
-import { getDayOfWeekInitial, matchesDay } from '../util/model';
+import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
 
 import { showPhoto, signOut } from '../flux/action/index';
 
-const moment = require('moment');
+import DayOfWeek from './DayOfWeek';
 
-const log = getLog('Week.');
+const moment = require('moment');
 
 function Week(props) {
 
@@ -16,53 +17,36 @@ function Week(props) {
 		let item = previousList.find(matchesDay(currentDateTime));
 		if (!item) {
 			item = {
-				number: moment(dateTime).date(),
-				dayOfWeek: getDayOfWeekInitial(dateTime),
+				number: moment(currentDateTime).date(),
+				dayOfWeek: getDayOfWeekAbrv(currentDateTime),
 				dateTimeList: []
 			};
 			previousList = previousList.concat(item);
 		}
-		item.dateTimeList = item.dateTimeList.concat(currentDateTime);
+		item.dateTimeList = item.dateTimeList.concat(currentDateTime).sort();
 		return previousList;
-	}, []).sort();
+	}, []).sort(compareForNumber);
 
-	log('Week');
+	const dateTimeCountMax = dayList.reduce((previousCount, currentItem) => Math.max(previousCount, currentItem.dateTimeList.length), 0);
 
 	return buildTable(
-		{ key: `week_${props.week}_table` },
+		{
+			key: `week_${props.week}_table`,
+			className: 'week_table'
+		},
 		buildRow(
 			'header',
 			buildCell(
 				'header',
 				props.week,
-				{ colSpan: dayList.length }
+				{ colSpan: dateTimeCountMax + 1 }
 			)
 		),
-		buildRow(
-			'photo',
-			buildCell(
-				'photo',
-				<input
-					onClick={() => dispatch(showPhoto())}
-					type='button'
-					value='Take photo'
-				/>
-			)
-		),
-		buildRow(
-			'sign out',
-			buildCell(
-				'sign out',
-				<input
-					onClick={() => dispatch(signOut())}
-					type='button'
-					value='Sign out'
-				/>
-			)
-		)
+		dayList.map(item => <DayOfWeek
+			key={item.number}
+			{...item}
+		/>)
 	);
-
-	return <p>{props.week}</p>;
 }
 
 export default Week;
