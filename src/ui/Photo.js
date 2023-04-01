@@ -10,8 +10,8 @@ const moment = require('moment');
 
 const log = getLog('Photo.');
 
-function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, streaming, width) {
-	if ((!videoField) || (!canvasField) || (!viewFinderField) || streaming) {
+function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, streaming, width) {
+	if ((!videoField) || (!canvasField) || (!viewFinderField) || (!previewField) || streaming) {
 		return;
 	}
 
@@ -73,10 +73,11 @@ function Photo(props) {
 	const [videoField, setVideoField] = useState(null);
 	const [canvasField, setCanvasField] = useState(null);
 	const [viewFinderField, setViewFinderField] = useState(null);
+	const [previewField, setPreviewField] = useState(null);
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, streaming, width);
+			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, streaming, width);
 		} else {
 			didMountRef.current = true;
 			// componentDidMount(props, dispatch);
@@ -96,11 +97,10 @@ function Photo(props) {
 			)
 		),
 		buildRow(
-			'photo',
+			'take preview',
 			buildCell(
-				'photo',
+				'take preview',
 				<input
-					id='startbutton'
 					onClick={() => {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
@@ -108,11 +108,39 @@ function Photo(props) {
 							canvasField.height = height;
 							context.drawImage(videoField, 0, 0, width, height);
 							const dataURI = canvasField.toDataURL('image/png');
-							dispatch(put(moment().format(), dataURI));
+							previewField.setAttribute('src', dataURI);
 						}
 					}}
 					type='button'
 					value='Take photo'
+				/>
+			)
+		),
+		buildRow(
+			'preview',
+			buildCell(
+				'preview',
+				<img
+					id='photo'
+					alt='The screen capture will appear in this box.'
+					ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
+				/>
+			)
+		),
+		buildRow(
+			'photo',
+			buildCell(
+				'photo',
+				<input
+					onClick={() => {
+						const context = canvasField.getContext('2d');
+						if (width && height) {
+							const dataURI = previewField.getAttribute('src');
+							dispatch(put(moment().format(), dataURI));
+						}
+					}}
+					type='button'
+					value='Save photo'
 				/>
 			)
 		),

@@ -1,11 +1,7 @@
 import React/*, { useState }*/ from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
-import { getLog } from '../util/log';
 import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
-
-import { showPhoto, signOut } from '../flux/action/index';
 
 import DayOfWeek from './DayOfWeek';
 

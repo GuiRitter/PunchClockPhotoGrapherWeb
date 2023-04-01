@@ -1,11 +1,6 @@
 import React/*, { useState }*/ from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { buildCell, buildRow } from '../util/html';
-import { getLog } from '../util/log';
-import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
-
-import { showPhoto, signOut } from '../flux/action/index';
 
 const moment = require('moment');
 
@@ -13,6 +8,11 @@ function DayOfWeek(props) {
 
 	return buildRow(
 		props.number,
+		buildCell(
+			'header',
+			props.dayOfWeek,
+			{ className: 'punch_time' }
+		),
 		props.dateTimeList.map(dateTime => buildCell(
 			dateTime,
 			moment(dateTime).format('HH:mm'),
