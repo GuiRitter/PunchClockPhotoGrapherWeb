@@ -10,8 +10,8 @@ const moment = require('moment');
 
 const log = getLog('Photo.');
 
-function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, streaming, width) {
-	if ((!videoField) || (!canvasField) || (!viewFinderField) || (!previewField) || streaming) {
+function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, yearField, monthField, dayField, hourField, minuteField, streaming, width) {
+	if ((!videoField) || (!canvasField) || (!viewFinderField) || (!previewField) || (!yearField) || (!monthField) || (!dayField) || (!hourField) || (!minuteField) || streaming) {
 		return;
 	}
 
@@ -53,6 +53,13 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				canvasField.setAttribute('width', width);
 				canvasField.setAttribute('height', height);
 				dispatch(setStreaming(true));
+
+				const now = moment();
+				yearField.value = now.format('YYYY');
+				monthField.value = now.format('MM');
+				dayField.value = now.format('DD');
+				hourField.value = now.format('HH');
+				minuteField.value = now.format('mm');
 			}
 		},
 		false
@@ -74,10 +81,15 @@ function Photo(props) {
 	const [canvasField, setCanvasField] = useState(null);
 	const [viewFinderField, setViewFinderField] = useState(null);
 	const [previewField, setPreviewField] = useState(null);
+	const [yearField, setYearField] = useState(null);
+	const [monthField, setMonthField] = useState(null);
+	const [dayField, setDayField] = useState(null);
+	const [hourField, setHourField] = useState(null);
+	const [minuteField, setMinuteField] = useState(null);
 
 	useEffect(() => {
 		if (didMountRef.current) {
-			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, streaming, width);
+			componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasField, viewFinderField, previewField, yearField, monthField, dayField, hourField, minuteField, streaming, width);
 		} else {
 			didMountRef.current = true;
 			// componentDidMount(props, dispatch);
@@ -93,7 +105,8 @@ function Photo(props) {
 				<video
 					id='video'
 					ref={ref => { if (ref && (ref !== videoField)) { setVideoField(ref); } }}
-				>Video stream not available.</video>
+				>Video stream not available.</video>,
+				{ colSpan: 9 }
 			)
 		),
 		buildRow(
@@ -113,7 +126,8 @@ function Photo(props) {
 					}}
 					type='button'
 					value='Take photo'
-				/>
+				/>,
+				{ colSpan: 9 }
 			)
 		),
 		buildRow(
@@ -124,6 +138,49 @@ function Photo(props) {
 					id='photo'
 					alt='The screen capture will appear in this box.'
 					ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
+				/>,
+				{ colSpan: 9 }
+			)
+		),
+		buildRow(
+			'date and time',
+			buildCell(
+				'year',
+				<input
+					className='year_field'
+					ref={ref => { if (ref && (ref !== yearField)) { setYearField(ref); } }}
+				/>
+			),
+			buildCell('year month separator', '-'),
+			buildCell(
+				'month',
+				<input
+					className='month_field text_align_center'
+					ref={ref => { if (ref && (ref !== monthField)) { setMonthField(ref); } }}
+				/>
+			),
+			buildCell('month day separator', '-'),
+			buildCell(
+				'day',
+				<input
+					className='day_field text_align_center'
+					ref={ref => { if (ref && (ref !== dayField)) { setDayField(ref); } }}
+				/>
+			),
+			buildCell('day hour separator', 'T'),
+			buildCell(
+				'hour',
+				<input
+					className='hour_field text_align_center'
+					ref={ref => { if (ref && (ref !== hourField)) { setHourField(ref); } }}
+				/>
+			),
+			buildCell('hour minute separator', ':'),
+			buildCell(
+				'minute',
+				<input
+					className='minute_field text_align_center'
+					ref={ref => { if (ref && (ref !== minuteField)) { setMinuteField(ref); } }}
 				/>
 			)
 		),
@@ -141,7 +198,8 @@ function Photo(props) {
 					}}
 					type='button'
 					value='Save photo'
-				/>
+				/>,
+				{ colSpan: 9 }
 			)
 		),
 		buildRow(
@@ -152,7 +210,8 @@ function Photo(props) {
 					onClick={() => dispatch(showList())}
 					type='button'
 					value='Back'
-				/>
+				/>,
+				{ colSpan: 9 }
 			)
 		)
 	)}<canvas

@@ -47,3 +47,27 @@ input {
 .week_table {
 	padding: 0 /*top*/ 0 /*right*/ 1em /*bottom*/ 0 /*left*/;
 }
+
+.year_field {
+	text-align: right;
+}
+
+.text_align_center {
+	text-align: center;
+}
+
+.month_field {
+	width: 2em;
+}
+
+.day_field {
+	width: 2em;
+}
+
+.hour_field {
+	width: 2em;
+}
+
+.minute_field {
+	width: 2em;
+}
