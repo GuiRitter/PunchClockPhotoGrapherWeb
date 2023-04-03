@@ -45,8 +45,8 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				document.querySelector(':root').style.setProperty(
 					'--view-finder-box-shadow',
 					(height > width)
-						? `inset ${letterBox}px ${letterBox + windowBox}px #00000080, inset ${letterBox}px -${letterBox + windowBox}px #00000080`
-						: `inset ${letterBox + windowBox}px ${letterBox}px #00000080, inset -${letterBox + windowBox}px ${letterBox}px #00000080`
+						? `inset ${letterBox}px ${letterBox + windowBox}px #00000080, inset -${letterBox}px -${letterBox + windowBox}px #00000080`
+						: `inset ${letterBox + windowBox}px ${letterBox}px #00000080, inset -${letterBox + windowBox}px -${letterBox}px #00000080`
 				);
 
 				videoField.setAttribute('width', width);
