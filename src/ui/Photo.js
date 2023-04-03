@@ -194,6 +194,7 @@ function Photo(props) {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
 							const dataURI = previewField.getAttribute('src');
+							// TODO crop out view finder before sending
 							dispatch(put(moment().format(), dataURI));
 						}
 					}}
