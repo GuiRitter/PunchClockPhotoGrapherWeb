@@ -34,8 +34,9 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				dispatch(setHeight(height));
 
 				const difference = Math.max(width, height) - Math.min(width, height);
-				const size = difference / 2;
+				const letterBox = difference / 2;
 				const offSet = getOffset(videoField);
+				const windowBox = Math.min(width, height) * 0.2;
 
 				document.querySelector(':root').style.setProperty('--view-finder-width', `${width}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-height', `${height}px`);
@@ -44,8 +45,8 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				document.querySelector(':root').style.setProperty(
 					'--view-finder-box-shadow',
 					(height > width)
-						? `inset 0 ${size}px #00000080, inset 0 -${size}px #00000080`
-						: `inset ${size}px 0 #00000080, inset -${size}px 0 #00000080`
+						? `inset ${letterBox}px ${letterBox + windowBox}px #00000080, inset ${letterBox}px -${letterBox + windowBox}px #00000080`
+						: `inset ${letterBox + windowBox}px ${letterBox}px #00000080, inset -${letterBox + windowBox}px ${letterBox}px #00000080`
 				);
 
 				videoField.setAttribute('width', width);
