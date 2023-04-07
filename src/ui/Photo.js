@@ -137,7 +137,7 @@ function Photo(props) {
 						if (width && height) {
 							canvasField.width = width;
 							canvasField.height = height;
-							context.drawImage(videoField, 0, 0, videoWidth, videoHeight);
+							context.drawImage(videoField, 0, 0, videoWidth, videoHeight, 0, 0, videoWidth, videoHeight);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
 						}
