@@ -206,7 +206,7 @@ function Photo(props) {
 							// TODO format date
 							log('Photo', { 
 								date: moment(yearField.value)
-									.month(Number(monthField.value) + 1)
+									.month(Number(monthField.value) - 1)
 									.date(dayField.value)
 									.hour(hourField.value)
 									.minute(minuteField.value) 
