@@ -202,7 +202,9 @@ function Photo(props) {
 						if (width && height) {
 							const dataURI = previewField.getAttribute('src');
 							// TODO crop out view finder before sending
-							dispatch(put(moment().format(), dataURI));
+							// dispatch(put(moment().format(), dataURI));
+							// TODO format date
+							log('Photo', { date: moment(`${yearField.value}${monthField.value}${dayField.value}${hourField.value}${minuteField.value}`, 'YYYYMMDDHHmm') });
 						}
 					}}
 					type='button'
