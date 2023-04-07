@@ -36,20 +36,33 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		ev => {
 			if (!streaming) {
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
-				dispatch(setSizes(height, videoField.videoWidth, videoField.videoHeight));
 
-				const difference = Math.max(width, height) - Math.min(width, height);
+				const min = Math.min(width, height);
+
+				const difference = Math.max(width, height) - min;
 				const letterBox = difference / 2;
 				const offSet = getOffset(videoField);
 				const windowBox = Math.min(width, height) * 0.2;
 
+				const { sx, sy } = (sizes => (height > width) ? {
+					sx: sizes.min,
+					sy: sizes.max
+				} : {
+					sx: sizes.max,
+					sy: sizes.min
+				})({
+					min: windowBox,
+					max: letterBox + windowBox
+				});
+
+				dispatch(setSizes(height, videoField.videoWidth, videoField.videoHeight, sx, sy));
+
 				log('componentDidUpdate.canplay', {
 					videoWidth: videoField.videoWidth,
 					videoHeight: videoField.videoHeight,
-					width,
-					height,
-					letterBox,
-					windowBox,
+					width, height,
+					letterBox, windowBox,
+					sx, sy,
 					offSet
 				});
 
@@ -64,10 +77,12 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 						: `inset ${letterBox + windowBox}px ${windowBox}px #00000080, inset -${letterBox + windowBox}px -${windowBox}px #00000080`
 				);
 
+				const size = min * 0.6;
+
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
-				canvasField.setAttribute('width', videoField.videoWidth);
-				canvasField.setAttribute('height', videoField.videoHeight);
+				canvasField.setAttribute('width', size);
+				canvasField.setAttribute('height', size);
 				dispatch(setStreaming(true));
 
 				const now = moment();
@@ -92,6 +107,8 @@ function Photo(props) {
 	const height = useSelector(state => ((state || {}).reducer || {}).height || null);
 	const videoWidth = useSelector(state => ((state || {}).reducer || {}).videoWidth || null);
 	const videoHeight = useSelector(state => ((state || {}).reducer || {}).videoHeight || null);
+	const sx = useSelector(state => ((state || {}).reducer || {}).sx || null);
+	const sy = useSelector(state => ((state || {}).reducer || {}).sy || null);
 
 	log('Photo', { streaming, width, height });
 
@@ -135,9 +152,10 @@ function Photo(props) {
 					onClick={() => {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
-							canvasField.width = videoWidth;
-							canvasField.height = videoHeight;
-							context.drawImage(videoField, 0, 0, videoWidth, videoHeight);
+							// canvasField.width = videoWidth;
+							// canvasField.height = videoHeight;
+							const size = canvasField.width;
+							context.drawImage(videoField, sx, sy, size, size, 0, 0, size, size);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
 						}

@@ -22,6 +22,8 @@ const initialState =
 	height: 0, // This will be computed based on the input stream
 	videoWidth: null,
 	videoHeight: null,
+	sx: null,
+	sy: null,
 	streaming: false
 };
 
@@ -84,6 +86,8 @@ const reducer = (currentState = initialState, action) => {
 				height: 0,
 				videoWidth: null,
 				videoHeight: null,
+				sx: null,
+				sy: null,
 				streaming: false
 			});
 
@@ -92,7 +96,9 @@ const reducer = (currentState = initialState, action) => {
 				...nextState,
 				height: action.height,
 				videoWidth: action.videoWidth,
-				videoHeight: action.videoHeight
+				videoHeight: action.videoHeight,
+				sx: action.sx,
+				sy: action.sy
 			});
 
 		case type.SET_STREAMING:
