@@ -239,7 +239,7 @@ function Photo(props) {
 								.date(dayField.value)
 								.hour(hourField.value)
 								.minute(minuteField.value)
-							dispatch(put(dateTime.format(), dataURI));
+							dispatch(put(dateTime.format(), dataURI, videoField));
 						}
 					}}
 					type='button'
@@ -253,16 +253,7 @@ function Photo(props) {
 			buildCell(
 				'back',
 				<input
-					onClick={() => {
-						if (videoField && videoField.srcObject && videoField.srcObject.getTracks) {
-							videoField.srcObject.getTracks().forEach(track => {
-								if (track.readyState === 'live') {
-									track.stop();
-								}
-							});
-						}
-						dispatch(showList());
-					}}
+					onClick={() => dispatch(showList(videoField))}
 					type='button'
 					value='Back'
 				/>,

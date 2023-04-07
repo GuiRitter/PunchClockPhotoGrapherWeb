@@ -21,14 +21,14 @@ export const getList = () => dispatch => {
 	));
 };
 
-export const put = (dateTime, dataURI) => dispatch => {
+export const put = (dateTime, dataURI, videoField) => dispatch => {
 	dispatch(axios.post(
 		`${API_URL}/photo/put`,
 		{ dateTime, dataURI },
 		null,
 		null,
 		error => alert(error ? (error.message || error.cause || (error.toString ? error.toString() : JSON.stringify(error))) : 'Unknown error'),
-		() => dispatch(showList())
+		() => dispatch(showList(videoField))
 	));
 };
 
@@ -55,7 +55,14 @@ export const setStreaming = streaming => ({
 	streaming
 });
 
-export const showList = () => dispatch => {
+export const showList = videoField => dispatch => {
+	if (videoField && videoField.srcObject && videoField.srcObject.getTracks) {
+		videoField.srcObject.getTracks().forEach(track => {
+			if (track.readyState === 'live') {
+				track.stop();
+			}
+		});
+	}
 	dispatch(setState(state.LIST));
 	dispatch({
 		type: type.RESET_MEDIA
