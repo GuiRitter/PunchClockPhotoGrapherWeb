@@ -204,7 +204,7 @@ function Photo(props) {
 							// TODO crop out view finder before sending
 							// dispatch(put(moment().format(), dataURI));
 							// TODO format date
-							log('Photo', { date: moment(`${yearField.value}${monthField.value}${dayField.value}${hourField.value}${minuteField.value}`, 'YYYYMMDDHHmm') });
+							log('Photo', { date2: moment(yearField.value).month(monthField.value).date(dayField.value).hour(hourField.value).minute(minuteField.value) });
 						}
 					}}
 					type='button'
