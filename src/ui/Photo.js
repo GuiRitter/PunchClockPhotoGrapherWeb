@@ -135,8 +135,8 @@ function Photo(props) {
 					onClick={() => {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
-							canvasField.width = width;
-							canvasField.height = height;
+							canvasField.width = videoWidth;
+							canvasField.height = videoHeight;
 							context.drawImage(videoField, 0, 0, videoWidth, videoHeight);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
