@@ -102,19 +102,11 @@ function Photo(props) {
 		}
 	});
 
-	return <>{buildTable(
+	return <><video
+		id='video'
+		ref={ref => { if (ref && (ref !== videoField)) { setVideoField(ref); } }}
+	>Video stream not available.</video>{buildTable(
 		{ key: 'table' },
-		buildRow(
-			'video',
-			buildCell(
-				'video',
-				<video
-					id='video'
-					ref={ref => { if (ref && (ref !== videoField)) { setVideoField(ref); } }}
-				>Video stream not available.</video>,
-				{ colSpan: 9 }
-			)
-		),
 		buildRow(
 			'take preview',
 			buildCell(
@@ -136,18 +128,12 @@ function Photo(props) {
 				{ colSpan: 9 }
 			)
 		),
-		buildRow(
-			'preview',
-			buildCell(
-				'preview',
-				<img
-					id='photo'
-					alt='The screen capture will appear in this box.'
-					ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
-				/>,
-				{ colSpan: 9 }
-			)
-		),
+	)}<img
+		id='photo'
+		alt='The screen capture will appear in this box.'
+		ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
+	/>{buildTable(
+		{ key: 'table' },
 		buildRow(
 			'date and time',
 			buildCell(
@@ -224,7 +210,7 @@ function Photo(props) {
 	)}<canvas
 		id='canvas'
 		ref={ref => { if (ref && (ref !== canvasField)) { setCanvasField(ref); } }}
-	> </canvas><div
+	></canvas><div
 		id='view_finder'
 		ref={ref => { if (ref && (ref !== viewFinderField)) { setViewFinderField(ref); } }}
 	></div></>;
