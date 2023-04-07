@@ -35,7 +35,8 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		'canplay',
 		ev => {
 			if (!streaming) {
-				log('componentDidUpdate', { videoWidth: videoField.videoWidth, videoHeight: videoField.videoHeight });
+				log('componentDidUpdate.canplay', { videoWidth: videoField.videoWidth, videoHeight: videoField.videoHeight });
+
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 				dispatch(setHeight(height));
 
@@ -103,11 +104,19 @@ function Photo(props) {
 		}
 	});
 
-	return <><video
-		id='video'
-		ref={ref => { if (ref && (ref !== videoField)) { setVideoField(ref); } }}
-	>Video stream not available.</video>{buildTable(
+	return <>{buildTable(
 		{ key: 'table' },
+		buildRow(
+			'video',
+			buildCell(
+				'video',
+				<video
+					id='video'
+					ref={ref => { if (ref && (ref !== videoField)) { setVideoField(ref); } }}
+				>Video stream not available.</video>,
+				{ colSpan: 9 }
+			)
+		),
 		buildRow(
 			'take preview',
 			buildCell(
@@ -129,13 +138,18 @@ function Photo(props) {
 				{ colSpan: 9 }
 			)
 		),
-	)}<img
-		id='photo'
-		alt='The screen capture will appear in this box.'
-		ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
-	/>{
-		buildTable(
-		{ key: 'table' },
+		buildRow(
+			'preview',
+			buildCell(
+				'preview',
+				<img
+					id='photo'
+					alt='The screen capture will appear in this box.'
+					ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
+				/>,
+				{ colSpan: 9 }
+			)
+		),
 		buildRow(
 			'date and time',
 			buildCell(
