@@ -229,7 +229,16 @@ function Photo(props) {
 			buildCell(
 				'back',
 				<input
-					onClick={() => dispatch(showList())}
+					onClick={() => {
+						if (videoField && videoField.srcObject && videoField.srcObject.getTracks) {
+							videoField.srcObject.getTracks().forEach(track => {
+								if (track.readyState === 'live') {
+									track.stop();
+								}
+							});
+						}
+						dispatch(showList());
+					}}
 					type='button'
 					value='Back'
 				/>,

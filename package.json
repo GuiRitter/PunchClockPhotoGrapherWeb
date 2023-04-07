@@ -1,6 +1,6 @@
 {
   "name": "punch_clock_photo_grapher",
-"version": "0.8.6",
+"version": "0.9.0",
   "private": true,
   "homepage": "punch_clock_photo_grapher/",
   "dependencies": {
