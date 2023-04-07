@@ -35,7 +35,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		'canplay',
 		ev => {
 			if (!streaming) {
-				log('componentDidUpdate', { videoHeight: videoField.videoHeight, videoWidth: videoField.videoWidth });
+				log('componentDidUpdate', { videoWidth: videoField.videoWidth, videoHeight: videoField.videoHeight });
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 				dispatch(setHeight(height));
 
