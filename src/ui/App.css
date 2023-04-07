@@ -22,7 +22,7 @@ input {
 }
 
 #view_finder {
-	position: fixed;
+	position: absolute;
 	background-color: #00000000;
 	width: var(--view-finder-width);
 	height: var(--view-finder-height);
