@@ -35,6 +35,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		'canplay',
 		ev => {
 			if (!streaming) {
+				log('componentDidUpdate', { videoHeight: videoField.videoHeight, videoWidth: videoField.videoWidth });
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 				dispatch(setHeight(height));
 
@@ -132,7 +133,8 @@ function Photo(props) {
 		id='photo'
 		alt='The screen capture will appear in this box.'
 		ref={ref => { if (ref && (ref !== previewField)) { setPreviewField(ref); } }}
-	/>{buildTable(
+	/>{
+		buildTable(
 		{ key: 'table' },
 		buildRow(
 			'date and time',
