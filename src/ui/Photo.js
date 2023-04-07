@@ -66,8 +66,8 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
-				canvasField.setAttribute('width', width);
-				canvasField.setAttribute('height', height);
+				canvasField.setAttribute('width', videoField.videoWidth);
+				canvasField.setAttribute('height', videoField.videoHeight);
 				dispatch(setStreaming(true));
 
 				const now = moment();
@@ -137,7 +137,7 @@ function Photo(props) {
 						if (width && height) {
 							canvasField.width = width;
 							canvasField.height = height;
-							context.drawImage(videoField, 0, 0, videoWidth, videoHeight, 0, 0, videoWidth, videoHeight);
+							context.drawImage(videoField, 0, 0, videoWidth, videoHeight);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
 						}
