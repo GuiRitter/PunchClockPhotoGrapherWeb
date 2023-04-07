@@ -35,8 +35,6 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		'canplay',
 		ev => {
 			if (!streaming) {
-				log('componentDidUpdate.canplay', { videoWidth: videoField.videoWidth, videoHeight: videoField.videoHeight });
-
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 				dispatch(setHeight(height));
 
@@ -44,6 +42,16 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				const letterBox = difference / 2;
 				const offSet = getOffset(videoField);
 				const windowBox = Math.min(width, height) * 0.2;
+
+				log('componentDidUpdate.canplay', {
+					videoWidth: videoField.videoWidth,
+					videoHeight: videoField.videoHeight,
+					width,
+					height,
+					letterBox,
+					windowBox,
+					offSet
+				});
 
 				document.querySelector(':root').style.setProperty('--view-finder-width', `${width}px`);
 				document.querySelector(':root').style.setProperty('--view-finder-height', `${height}px`);
