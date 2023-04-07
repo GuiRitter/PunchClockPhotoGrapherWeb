@@ -15,6 +15,11 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		return;
 	}
 
+	if (!navigator.mediaDevices) {
+		alert('Access to media devices disabled due to unsafe context.');
+		return;
+	}
+
 	navigator.mediaDevices.getUserMedia({
 		audio: false,
 		video: { facingMode: { exact: 'environment' } }
