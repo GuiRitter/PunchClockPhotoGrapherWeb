@@ -82,7 +82,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 						: `inset ${letterBox + windowBox}px ${windowBox}px #00000080, inset -${letterBox + windowBox}px -${windowBox}px #00000080`
 				);
 
-				const size = min * 0.6;
+				const size = videoMin * 0.6;
 
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
