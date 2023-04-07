@@ -239,7 +239,6 @@ function Photo(props) {
 								.date(dayField.value)
 								.hour(hourField.value)
 								.minute(minuteField.value)
-							// TODO crop out view finder before sending
 							dispatch(put(dateTime.format(), dataURI));
 						}
 					}}
