@@ -20,6 +20,8 @@ const initialState =
 
 	width: 320, // We will scale the photo width to this
 	height: 0, // This will be computed based on the input stream
+	videoWidth: null,
+	videoHeight: null,
 	streaming: false
 };
 
@@ -80,13 +82,17 @@ const reducer = (currentState = initialState, action) => {
 				...nextState,
 				width: 320,
 				height: 0,
+				videoWidth: null,
+				videoHeight: null,
 				streaming: false
 			});
 
-		case type.SET_HEIGHT:
+		case type.SET_SIZES:
 			return updateLocalStorage({
 				...nextState,
-				height: action.height
+				height: action.height,
+				videoWidth: action.videoWidth,
+				videoHeight: action.videoHeight
 			});
 
 		case type.SET_STREAMING:

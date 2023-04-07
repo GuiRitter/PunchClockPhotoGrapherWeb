@@ -16,6 +16,6 @@ export const RESET_MEDIA = 'RESET_MEDIA';
 
 export const RESTORE_FROM_LOCAL_STORAGE = 'RESTORE_FROM_LOCAL_STORAGE';
 
-export const SET_HEIGHT = 'SET_HEIGHT';
+export const SET_SIZES = 'SET_SIZES';
 
 export const SET_STREAMING = 'SET_STREAMING';

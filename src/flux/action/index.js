@@ -36,14 +36,16 @@ export const restoreFromLocalStorage = () => ({
 	type: type.RESTORE_FROM_LOCAL_STORAGE
 });
 
+export const setSizes = (height, videoWidth, videoHeight) => ({
+	type: type.SET_SIZES,
+	height,
+	videoWidth,
+	videoHeight
+});
+
 const setState = state => ({
 	type: type.NAVIGATION,
 	state
-});
-
-export const setHeight = height => ({
-	type: type.SET_HEIGHT,
-	height
 });
 
 export const setStreaming = streaming => ({

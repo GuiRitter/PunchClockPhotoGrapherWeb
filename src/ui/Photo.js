@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { buildCell, buildRow, buildTable, getOffset } from '../util/html';
 import { getLog } from '../util/log';
 
-import { put, setHeight, setStreaming, showList } from '../flux/action/index';
+import { put, setSizes, setStreaming, showList } from '../flux/action/index';
 
 const moment = require('moment');
 
@@ -36,7 +36,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 		ev => {
 			if (!streaming) {
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
-				dispatch(setHeight(height));
+				dispatch(setSizes(height, videoField.videoWidth, videoField.videoHeight));
 
 				const difference = Math.max(width, height) - Math.min(width, height);
 				const letterBox = difference / 2;
@@ -90,6 +90,8 @@ function Photo(props) {
 	const streaming = useSelector(state => ((state || {}).reducer || {}).streaming || false);
 	const width = useSelector(state => ((state || {}).reducer || {}).width || null);
 	const height = useSelector(state => ((state || {}).reducer || {}).height || null);
+	const videoWidth = useSelector(state => ((state || {}).reducer || {}).videoWidth || null);
+	const videoHeight = useSelector(state => ((state || {}).reducer || {}).videoHeight || null);
 
 	log('Photo', { streaming, width, height });
 
@@ -135,7 +137,7 @@ function Photo(props) {
 						if (width && height) {
 							canvasField.width = width;
 							canvasField.height = height;
-							context.drawImage(videoField, 0, 0, width, height);
+							context.drawImage(videoField, 0, 0, videoWidth, videoHeight);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
 						}
