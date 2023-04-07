@@ -38,11 +38,15 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 
 				const min = Math.min(width, height);
-
 				const difference = Math.max(width, height) - min;
 				const letterBox = difference / 2;
 				const offSet = getOffset(videoField);
-				const windowBox = Math.min(width, height) * 0.2;
+				const windowBox = min * 0.2;
+
+				const videoMin = Math.min(videoField.videoWidth, videoField.videoHeight);
+				const videoDifference = Math.max(videoField.videoWidth, videoField.videoHeight) - videoMin;
+				const videoLetterBox = videoDifference / 2;
+				const videoWindowBox = videoMin * 0.2;
 
 				const { sx, sy } = (sizes => (height > width) ? {
 					sx: sizes.min,
@@ -51,8 +55,8 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 					sx: sizes.max,
 					sy: sizes.min
 				})({
-					min: windowBox,
-					max: letterBox + windowBox
+					min: videoWindowBox,
+					max: videoLetterBox + videoWindowBox
 				});
 
 				dispatch(setSizes(height, videoField.videoWidth, videoField.videoHeight, sx, sy));
@@ -60,6 +64,7 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				log('componentDidUpdate.canplay', {
 					videoWidth: videoField.videoWidth,
 					videoHeight: videoField.videoHeight,
+					videoLetterBox, videoWindowBox,
 					width, height,
 					letterBox, windowBox,
 					sx, sy,
