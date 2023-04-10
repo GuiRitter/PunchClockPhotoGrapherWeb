@@ -11,7 +11,7 @@ import * as axios from './axios';
 
 export const getList = () => dispatch => {
 	dispatch(axios.get(
-		`${API_URL}/photo/get`,
+		`${API_URL}/photo/list`,
 		null,
 		value => dispatch({
 			type: type.GET_DATA,
