@@ -7,6 +7,22 @@ import DayOfWeek from './DayOfWeek';
 
 const moment = require('moment');
 
+function padDate(date) {
+	return (date + '').padStart(2, '0');
+}
+
+function getISO8601(dayList) {
+	const monthList = dayList.reduce((previousList, currentDay) => {
+		const month = padDate(currentDay.month);
+		return previousList.concat(previousList.includes(month) ? [] : month);
+	}, []);
+	if (monthList.length === 1) {
+		return `${monthList[0]}-${padDate(dayList[0].number)}/${padDate(dayList.slice(-1)[0].number)}`;
+	} else {
+		return `${monthList[0]}-${padDate(dayList[0].number)}/${monthList[1]}-${padDate(dayList.slice(-1)[0].number)}`;
+	}
+}
+
 function Week(props) {
 
 	const dayList = props.dateTimeList.reduce((previousList, currentDateTime) => {
@@ -14,6 +30,7 @@ function Week(props) {
 		if (!item) {
 			item = {
 				number: moment(currentDateTime).date(),
+				month: moment(currentDateTime).month(),
 				dayOfWeek: getDayOfWeekAbrv(currentDateTime),
 				dateTimeList: []
 			};
@@ -39,7 +56,7 @@ function Week(props) {
 					className='week_header_button'
 					onClick={() => alert('TO DO')}
 					type='button'
-					value={props.week}
+					value={getISO8601(dayList)}
 				/>,
 				{ colSpan: (2 * dateTimeCountMax) - 1 }
 			),
