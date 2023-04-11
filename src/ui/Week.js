@@ -32,10 +32,25 @@ function Week(props) {
 		},
 		buildRow(
 			'header',
+			buildCell('space', null),
 			buildCell(
 				'header',
-				props.week,
-				{ colSpan: dateTimeCountMax + 1 }
+				<input
+					className='week_header_button'
+					onClick={() => alert('TO DO')}
+					type='button'
+					value={props.week}
+				/>,
+				{ colSpan: (2 * dateTimeCountMax) - 1 }
+			),
+			buildCell(
+				'delete',
+				<input
+					onClick={() => alert('TO DO')}
+					type='button'
+					value='×'
+				/>,
+				{ className: 'punch_time_×' }
 			)
 		),
 		dayList.map(item => <DayOfWeek

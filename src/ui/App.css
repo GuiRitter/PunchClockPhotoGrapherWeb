@@ -36,11 +36,20 @@ input {
 }
 
 .punch_time {
-	padding: 0 /*top*/ 0.5em /*right*/ 0 /*bottom*/ 0.5em /*left*/;
+	padding: 0 /*top*/ 0 /*right*/ 0 /*bottom*/ 0.5em /*left*/;
+}
+
+.punch_time_× {
+	padding: 0 /*top*/ 0.5em /*right*/ 0 /*bottom*/ 0 /*left*/;
 }
 
 .week_table {
 	padding: 0 /*top*/ 0 /*right*/ 1em /*bottom*/ 0 /*left*/;
+	empty-cells: show;
+}
+
+.week_header_button {
+	width: 100%;
 }
 
 .year_field {
