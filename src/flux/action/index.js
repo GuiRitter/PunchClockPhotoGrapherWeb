@@ -5,9 +5,22 @@ import * as type from '../type';
 
 import * as axios from './axios';
 
+import { getLog } from '../../util/log';
+
+const log = getLog('flux.action.index.');
+
 // const doesNothing = ({
 // 	type: type.NO_OP
 // });
+
+export const compose = week => dispatch => {
+	dispatch(axios.get(
+		`${API_URL}/photo/compose?week=${week}`,
+		null,
+		response => log('compose', { response }),
+		null
+	));
+};
 
 export const getList = () => dispatch => {
 	dispatch(axios.get(

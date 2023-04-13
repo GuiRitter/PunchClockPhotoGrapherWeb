@@ -1,7 +1,10 @@
 import React/*, { useState }*/ from 'react';
+import { useDispatch } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
 import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
+
+import { compose } from '../flux/action/index';
 
 import DayOfWeek from './DayOfWeek';
 
@@ -24,6 +27,8 @@ function getISO8601(dayList) {
 }
 
 function Week(props) {
+
+	const dispatch = useDispatch();
 
 	const dayList = props.dateTimeList.reduce((previousList, currentDateTime) => {
 		let item = previousList.find(matchesDay(currentDateTime));
@@ -54,7 +59,7 @@ function Week(props) {
 				'header',
 				<input
 					className='week_header_button'
-					onClick={() => alert('TO DO')}
+					onClick={() => dispatch(compose(props.week))}
 					type='button'
 					value={getISO8601(dayList)}
 				/>,
