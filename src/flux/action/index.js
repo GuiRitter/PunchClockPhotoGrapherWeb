@@ -15,7 +15,7 @@ import * as axios from './axios';
 
 export const compose = week => dispatch => {
 	dispatch(axios.get(
-		`${API_URL}/week/compose?week=${week}`,
+		`${API_URL}/week/${week}/compose`,
 		null,
 		response => setTimeout(() => document.getElementById('out_put').src = `data:image/png;base64,${response.data}`, 1000),
 		null
