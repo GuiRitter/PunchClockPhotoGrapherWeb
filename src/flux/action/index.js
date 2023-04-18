@@ -58,7 +58,7 @@ export const getList = () => dispatch => {
 
 export const put = (dateTime, dataURI, videoField) => dispatch => {
 	dispatch(axios.post(
-		`${API_URL}/photo/put`,
+		`${API_URL}/photo/`,
 		{ dateTime, dataURI },
 		null,
 		null,
