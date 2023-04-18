@@ -46,11 +46,11 @@ export const deleteWeek = (week, description) => dispatch => {
 
 export const getList = () => dispatch => {
 	dispatch(axios.get(
-		`${API_URL}/photo/list`,
+		`${API_URL}/photo/`,
 		null,
-		value => dispatch({
+		response => dispatch({
 			type: type.GET_DATA,
-			data: value.data
+			data: response.data
 		}),
 		null
 	));
