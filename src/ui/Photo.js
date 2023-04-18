@@ -110,8 +110,6 @@ function Photo(props) {
 	const streaming = useSelector(state => ((state || {}).reducer || {}).streaming || false);
 	const width = useSelector(state => ((state || {}).reducer || {}).width || null);
 	const height = useSelector(state => ((state || {}).reducer || {}).height || null);
-	const videoWidth = useSelector(state => ((state || {}).reducer || {}).videoWidth || null);
-	const videoHeight = useSelector(state => ((state || {}).reducer || {}).videoHeight || null);
 	const sx = useSelector(state => ((state || {}).reducer || {}).sx || null);
 	const sy = useSelector(state => ((state || {}).reducer || {}).sy || null);
 
@@ -157,8 +155,6 @@ function Photo(props) {
 					onClick={() => {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
-							// canvasField.width = videoWidth;
-							// canvasField.height = videoHeight;
 							const size = canvasField.width;
 							context.drawImage(videoField, sx, sy, size, size, 0, 0, size, size);
 							const dataURI = canvasField.toDataURL('image/png');
@@ -231,7 +227,6 @@ function Photo(props) {
 				'photo',
 				<input
 					onClick={() => {
-						const context = canvasField.getContext('2d');
 						if (width && height) {
 							const dataURI = previewField.getAttribute('src');
 							let dateTime = moment(yearField.value)

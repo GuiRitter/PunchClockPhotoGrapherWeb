@@ -6,7 +6,7 @@ import * as state from '../constant/state';
 import { getLog } from '../util/log';
 import { updateLocalStorage } from '../util/persistence';
 
-const moment = require('moment');
+// const moment = require('moment');
 
 const log = getLog('flux.reducer.');
 

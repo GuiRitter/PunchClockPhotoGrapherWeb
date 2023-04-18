@@ -1,4 +1,4 @@
-import React/*, { useState }*/ from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
@@ -19,6 +19,8 @@ function List(props) {
 
 	log('List');
 
+	const [outPutField, setOutPutField] = useState(null);
+
 	const weekList = list.reduce((previousList, currentRow) => {
 		let item = previousList.find(matchesWeek(currentRow.week));
 		if (!item) {
@@ -35,7 +37,11 @@ function List(props) {
 		{...item}
 	/>);
 
-	return <>{weekList}{buildTable(
+	return <><img
+		id='out_put'
+		alt='The composite of the photos will appear in this box.'
+		ref={ref => { if (ref && (ref !== outPutField)) { setOutPutField(ref); } }}
+	/>{weekList}{buildTable(
 		{ key: 'menu_table' },
 		buildRow(
 			'refresh',

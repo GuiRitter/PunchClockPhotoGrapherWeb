@@ -5,9 +5,9 @@ import * as type from '../type';
 
 import * as axios from './axios';
 
-import { getLog } from '../../util/log';
+// import { getLog } from '../../util/log';
 
-const log = getLog('flux.action.index.');
+// const log = getLog('flux.action.index.');
 
 // const doesNothing = ({
 // 	type: type.NO_OP
@@ -15,11 +15,22 @@ const log = getLog('flux.action.index.');
 
 export const compose = week => dispatch => {
 	dispatch(axios.get(
-		`${API_URL}/photo/compose?week=${week}`,
+		`${API_URL}/week/compose?week=${week}`,
 		null,
-		response => log('compose', { response }),
+		response => setTimeout(() => document.getElementById('out_put').src = `data:image/png;base64,${response.data}`, 1000),
 		null
 	));
+};
+
+export const deletePhoto = dateTime => dispatch => {
+	if (window.confirm(`confirm delete photo ${dateTime}?`)) {
+		dispatch(axios.del(
+			`${API_URL}/photo/${encodeURIComponent(dateTime)}`,
+			null,
+			response => dispatch(getList()),
+			null
+		));
+	}
 };
 
 export const getList = () => dispatch => {

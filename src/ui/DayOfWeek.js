@@ -1,10 +1,14 @@
 import React/*, { useState }*/ from 'react';
+import { useDispatch } from 'react-redux';
 
 import { buildCell, buildRow } from '../util/html';
+import { deletePhoto } from '../flux/action';
 
 const moment = require('moment');
 
 function DayOfWeek(props) {
+
+	const dispatch = useDispatch();
 
 	return buildRow(
 		props.number,
@@ -22,7 +26,7 @@ function DayOfWeek(props) {
 			buildCell(
 				dateTime + '_×',
 				<input
-					onClick={() => alert('TO DO')}
+					onClick={() => dispatch(deletePhoto(dateTime))}
 					type='button'
 					value='×'
 				/>,
@@ -30,8 +34,6 @@ function DayOfWeek(props) {
 			)
 		])
 	);
-
-	return props.dayOfWeek;
 }
 
 export default DayOfWeek;

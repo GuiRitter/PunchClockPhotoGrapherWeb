@@ -21,6 +21,11 @@ export const abortRequest = () => (dispatch, getState) => {
 	});
 };
 
+export const del = (url, config, thenFunction, catchFunction, finallyFunction) => (dispatch, getState) => {
+	log('delete', { url, config, then: !!thenFunction, catch: !!catchFunction, finally: !!finallyFunction });
+	dispatch(requestAndShowLoading(getAxiosWithAbortController(httpMethod.DELETE, url, null, config, getState), thenFunction, catchFunction, finallyFunction));
+};
+
 const getAxiosWithAbortController = (method, url, data, config, getState) => {
 	log('getAxiosWithAbortController', { method, url, data, config });
 	let abortController = new AbortController();
@@ -40,6 +45,9 @@ const getAxiosWithAbortController = (method, url, data, config, getState) => {
 		abortMethod
 	};
 	switch (method) {
+		case httpMethod.DELETE:
+			result.runAxios = () => axiosInstance.delete(url, config);
+			break;
 		case httpMethod.GET:
 			result.runAxios = () => axiosInstance.get(url, config);
 			break;
