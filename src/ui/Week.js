@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { buildCell, buildRow, buildTable } from '../util/html';
 import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
 
-import { compose } from '../flux/action/index';
+import { compose, deleteWeek } from '../flux/action/index';
 
 import DayOfWeek from './DayOfWeek';
 
@@ -47,6 +47,8 @@ function Week(props) {
 
 	const dateTimeCountMax = dayList.reduce((previousCount, currentItem) => Math.max(previousCount, currentItem.dateTimeList.length), 0);
 
+	const iso8601 = getISO8601(dayList);
+
 	return buildTable(
 		{
 			key: `week_${props.week}_table`,
@@ -61,14 +63,14 @@ function Week(props) {
 					className='week_header_button'
 					onClick={() => dispatch(compose(props.week))}
 					type='button'
-					value={getISO8601(dayList)}
+					value={iso8601}
 				/>,
 				{ colSpan: (2 * dateTimeCountMax) - 1 }
 			),
 			buildCell(
 				'delete',
 				<input
-					onClick={() => alert('TO DO')}
+					onClick={() => dispatch(deleteWeek(props.week, iso8601))}
 					type='button'
 					value='×'
 				/>,

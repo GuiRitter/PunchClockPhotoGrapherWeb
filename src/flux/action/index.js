@@ -33,6 +33,17 @@ export const deletePhoto = dateTime => dispatch => {
 	}
 };
 
+export const deleteWeek = (week, description) => dispatch => {
+	if (window.confirm(`confirm delete week ${description}?`)) {
+		dispatch(axios.del(
+			`${API_URL}/week/${week}`,
+			null,
+			response => dispatch(getList()),
+			null
+		));
+	}
+};
+
 export const getList = () => dispatch => {
 	dispatch(axios.get(
 		`${API_URL}/photo/list`,
