@@ -35,7 +35,7 @@ function Week(props) {
 		if (!item) {
 			item = {
 				number: moment(currentDateTime).date(),
-				month: moment(currentDateTime).month(),
+				month: moment(currentDateTime).month() + 1,
 				dayOfWeek: getDayOfWeekAbrv(currentDateTime),
 				dateTimeList: []
 			};

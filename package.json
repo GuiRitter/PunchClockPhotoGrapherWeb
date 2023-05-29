@@ -1,6 +1,6 @@
 {
   "name": "punch_clock_photo_grapher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "homepage": "punch_clock_photo_grapher/",
   "dependencies": {
@@ -19,6 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "i": "npx update-browserslist-db@latest && npm i",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
