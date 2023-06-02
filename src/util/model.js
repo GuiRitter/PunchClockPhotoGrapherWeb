@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-export const compareForNumber = (itemA, itemB) => (itemA.number < itemB.number) ? -1 : (itemA.number > itemB.number) ? 1 : 0;
+export const compareForMonthAndNumber = (itemA, itemB) => (itemA.month < itemB.month) ? -1 : (itemA.month > itemB.month) ? 1 : (itemA.number < itemB.number) ? -1 : (itemA.number > itemB.number) ? 1 : 0;
 
 export const getDayOfWeekAbrv = dateTime => {
 	let day = moment(dateTime).day();

@@ -2,13 +2,16 @@ import React/*, { useState }*/ from 'react';
 import { useDispatch } from 'react-redux';
 
 import { buildCell, buildRow, buildTable } from '../util/html';
-import { compareForNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
+import { getLog } from '../util/log';
+import { compareForMonthAndNumber, getDayOfWeekAbrv, matchesDay } from '../util/model';
 
 import { compose, deleteWeek } from '../flux/action/index';
 
 import DayOfWeek from './DayOfWeek';
 
 const moment = require('moment');
+
+const log = getLog('Week.');
 
 function padDate(date) {
 	return (date + '').padStart(2, '0');
@@ -43,11 +46,13 @@ function Week(props) {
 		}
 		item.dateTimeList = item.dateTimeList.concat(currentDateTime).sort();
 		return previousList;
-	}, []).sort(compareForNumber);
+	}, []).sort(compareForMonthAndNumber);
 
 	const dateTimeCountMax = dayList.reduce((previousCount, currentItem) => Math.max(previousCount, currentItem.dateTimeList.length), 0);
 
 	const iso8601 = getISO8601(dayList);
+
+	log('Week', { dateTimeList: props.dateTimeList, dayList, dateTimeCountMax, iso8601 });
 
 	return buildTable(
 		{
