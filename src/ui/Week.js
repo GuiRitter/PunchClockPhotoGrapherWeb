@@ -61,7 +61,14 @@ function Week(props) {
 		},
 		buildRow(
 			'header',
-			buildCell('space', null),
+			buildCell(
+				'space',
+				<a
+					id={`download_anchor_${props.week}`}
+					download={`${iso8601.replace('/', '／')}.png`}
+				>💾</a>,
+				{ className: 'text_align_center' }
+			),
 			buildCell(
 				'header',
 				<input

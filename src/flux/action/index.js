@@ -17,7 +17,10 @@ export const compose = week => dispatch => {
 	dispatch(axios.get(
 		`${API_URL}/week/${week}/compose`,
 		null,
-		response => setTimeout(() => document.getElementById('out_put').src = `data:image/png;base64,${response.data}`, 1000),
+		response => setTimeout(() => {
+			document.getElementById('out_put').src = `data:image/png;base64,${response.data}`;
+			document.getElementById(`download_anchor_${week}`).href = `data:image/png;base64,${response.data}`;
+		}, 1000),
 		null
 	));
 };
