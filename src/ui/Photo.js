@@ -38,15 +38,15 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 				let height = (videoField.videoHeight / videoField.videoWidth) * width;
 
 				const min = Math.min(width, height);
-				const difference = Math.max(width, height) - min;
-				const letterBox = difference / 2;
+				const max = Math.max(width, height);
+				const letterBox = max * 0.10;
 				const offSet = getOffset(videoField);
-				const windowBox = min * 0.2;
+				const windowBox = min * 0.15;
 
 				const videoMin = Math.min(videoField.videoWidth, videoField.videoHeight);
-				const videoDifference = Math.max(videoField.videoWidth, videoField.videoHeight) - videoMin;
-				const videoLetterBox = videoDifference / 2;
-				const videoWindowBox = videoMin * 0.2;
+				const videoMax = Math.max(videoField.videoWidth, videoField.videoHeight);
+				const videoLetterBox = videoMax * 0.10;
+				const videoWindowBox = videoMin * 0.15;
 
 				const { sx, sy } = (sizes => (height > width) ? {
 					sx: sizes.min,
@@ -82,12 +82,10 @@ function componentDidUpdate(props/*, prevProps*/, dispatch, videoField, canvasFi
 						: `inset ${letterBox + windowBox}px ${windowBox}px #00000080, inset -${letterBox + windowBox}px -${windowBox}px #00000080`
 				);
 
-				const size = videoMin * 0.6;
-
 				videoField.setAttribute('width', width);
 				videoField.setAttribute('height', height);
-				canvasField.setAttribute('width', size);
-				canvasField.setAttribute('height', size);
+				canvasField.setAttribute('width', videoField.videoWidth - (2 * sx));
+				canvasField.setAttribute('height', videoField.videoHeight - (2 * sy));
 				dispatch(setStreaming(true));
 
 				const now = moment();
@@ -155,8 +153,9 @@ function Photo(props) {
 					onClick={() => {
 						const context = canvasField.getContext('2d');
 						if (width && height) {
-							const size = canvasField.width;
-							context.drawImage(videoField, sx, sy, size, size, 0, 0, size, size);
+							const width = canvasField.width;
+							const height = canvasField.height;
+							context.drawImage(videoField, sx, sy, width, height, 0, 0, width, height);
 							const dataURI = canvasField.toDataURL('image/png');
 							previewField.setAttribute('src', dataURI);
 						}
