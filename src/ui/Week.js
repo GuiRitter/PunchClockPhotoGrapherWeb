@@ -29,6 +29,10 @@ function getISO8601(dayList) {
 	}
 }
 
+function getYear(dayList) {
+	return moment(dayList.reduce((_, day) => day.dateTimeList, []).reduce((_, dateTime) => dateTime, '')).year();
+}
+
 function Week(props) {
 
 	const dispatch = useDispatch();
@@ -52,7 +56,9 @@ function Week(props) {
 
 	const iso8601 = getISO8601(dayList);
 
-	log('Week', { dateTimeList: props.dateTimeList, dayList, dateTimeCountMax, iso8601 });
+	const year = getYear(dayList);
+
+	log('Week', { dateTimeList: props.dateTimeList, dayList, dateTimeCountMax, iso8601, year });
 
 	return buildTable(
 		{
@@ -65,7 +71,7 @@ function Week(props) {
 				'space',
 				<a
 					id={`download_anchor_${props.week}`}
-					download={`${iso8601.replace('/', '／')}.png`}
+					download={`${year}-${iso8601.replace('/', '／')}.png`}
 				>💾</a>,
 				{ className: 'text_align_center' }
 			),
